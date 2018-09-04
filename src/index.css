@@ -1,0 +1,48 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
+
+/* Common Styles */
+body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #333;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background-color: #353535;    
+    padding: 20px;
+}
+
+header h2 {
+    margin: 0;
+    text-align: center;
+    color: #aaa;
+}
+
+/* Details */
+#details {
+    min-height: 100vh;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    background-color: #eee;
+    padding: 10px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.33);
+}
+
+footer p {
+    text-align: center;
+    margin: 0;
+}
