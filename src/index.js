@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
+// Import Containers
+import App from './containers/App';
+
 ReactDOM.render(
-    <h1>Hello World</h1>,
+    <App/>,
     document.getElementById("root")
 );
