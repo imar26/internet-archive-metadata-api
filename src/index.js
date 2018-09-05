@@ -10,25 +10,23 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 // Styles
 import './index.css';
 
-import { Provider, connect } from 'react-redux';
-import { createStore } from 'redux';
+// import { Provider, connect } from 'react-redux';
+// import { createStore } from 'redux';
 
 // Import Reducers
-import rootReducer from './reducers/rootReducer';
+// import rootReducer from './reducers/rootReducer';
 
 // Import Mappers
-import { mapStateToProps, mapDispatchToProps } from './mappers';
+// import { mapStateToProps, mapDispatchToProps } from './mappers';
 
 // Import Containers
 import App from './containers/App';
 
-let store = createStore(rootReducer);
+// let store = createStore(rootReducer);
 
-const Root = connect(mapStateToProps, mapDispatchToProps)(App);
+// const Root = connect(mapStateToProps, mapDispatchToProps)(App);
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Root/>
-    </Provider>,
+    <App/>,
     document.getElementById("root")
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Footer = () => {
-    return <footer>
+    return <footer id="footer">
         <p>Copyrights &copy; Internet Archive Metadata API. All rights reserved.</p>
     </footer>
 }
