@@ -112,59 +112,59 @@ class Details extends Component {
                                     </tr>
                                     <tr>
                                         <th>Topics:</th>
-                                        <td>{data.metadata.subject}</td>
+                                        <td>{data.metadata.subject ? data.metadata.subject : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Publisher:</th>
-                                        <td>{data.metadata.publisher}</td>
+                                        <td>{data.metadata.publisher ? data.metadata.publisher : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Digitizing Sponsor:</th>
-                                        <td>{data.metadata.sponsor}</td>
+                                        <td>{data.metadata.sponsor ? data.metadata.sponsor : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Closed Captioning:</th>
-                                        <td>{data.metadata.closed_captioning}</td>
+                                        <td>{data.metadata.closed_captioning ? data.metadata.closed_captioning : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Collection:</th>
-                                        <td>{data.metadata.collection}</td>
+                                        <td>{data.metadata.collection ? data.metadata.collection : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Collection ID:</th>
-                                        <td>{data.metadata.collectionid}</td>
+                                        <td>{data.metadata.collectionid ? data.metadata.collectionid : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Color:</th>
-                                        <td>{data.metadata.color}</td>
+                                        <td>{data.metadata.color ? data.metadata.color : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Identifier:</th>
-                                        <td>{data.metadata.identifier}</td>
+                                        <td>{data.metadata.identifier ? data.metadata.identifier : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Numeric ID:</th>
-                                        <td>{data.metadata.numeric_id}</td>
+                                        <td>{data.metadata.numeric_id ? data.metadata.numeric_id : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Proddate:</th>
-                                        <td>{data.metadata.date}</td>
+                                        <td>{data.metadata.date ? data.metadata.date : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Runtime:</th>
-                                        <td>{data.metadata.runtime}</td>
+                                        <td>{data.metadata.runtime ? data.metadata.runtime : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Sound:</th>
-                                        <td>{data.metadata.sound}</td>
+                                        <td>{data.metadata.sound ? data.metadata.sound : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Media Type:</th>
-                                        <td>{data.metadata.mediatype}</td>
+                                        <td>{data.metadata.mediatype ? data.metadata.mediatype : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Type:</th>
-                                        <td>{data.metadata.type}</td>
+                                        <td>{data.metadata.type ? data.metadata.type : '-'}</td>
                                     </tr>
                                     <tr>
                                         <th>Updated Date:</th>
@@ -172,7 +172,7 @@ class Details extends Component {
                                     </tr>
                                     <tr>
                                         <th>Updater:</th>
-                                        <td>{data.metadata.updater}</td>
+                                        <td>{data.metadata.updater ? data.metadata.updater : '-'}</td>
                                     </tr>
                                 </tbody>
                             </table>
