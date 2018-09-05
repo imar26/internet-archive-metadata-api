@@ -28,6 +28,20 @@ class MetadataService {
                 return data;
             });
     }
+
+    getRelatedItems(identifier) {
+        var uniqueIdentifier = identifier || 'InformationM';   
+        
+        let url = "https://be-api.us.archive.org/mds/v1/get_related/all/" + uniqueIdentifier;
+
+        return fetch(url)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                return data.hits.hits;
+            });
+    }
 }
 
 export default MetadataService;

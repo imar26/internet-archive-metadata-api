@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+// Import moment js
+import moment from 'moment';
+
 // Import Services
 import metadataService from '../services/metadataService';
 
@@ -8,7 +11,8 @@ class Details extends Component {
         super(props);
 
         this.state = {
-            contents: {}
+            contents: {},
+            relatedItems: []
         }
 
         this.metadataService = metadataService.instance;
@@ -21,6 +25,47 @@ class Details extends Component {
             .then((response) => {
                 this.setState({contents: response})
             });
+
+        this
+            .metadataService
+            .getRelatedItems()
+            .then((response) => {
+                this.setState({relatedItems: response})
+            });
+    }
+
+    renderRelatedItems() {
+        var len = this.state.relatedItems.length;        
+        if(len > 0) {
+            console.log(this.state.relatedItems);
+            return <ul className="items row">
+                {
+                    this.state.relatedItems.map((item, i) => {
+                        var imgSrc = "https://archive.org/services/img/" + item._id;
+                        return <li className="col-md-4" key={i}>
+                            <img src={imgSrc} />
+                            <h5>{item._source.title[0]}</h5>
+                            <table className="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Media Type:</th>
+                                        <th>Downloads:</th>
+                                        <th>Reviews:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{item._source.mediatype && item._source.mediatype[0] === 'movies' ? <i className="fa fa-film" aria-hidden="true"></i> : <i className="fa fa-file-text" aria-hidden="true"></i>}</td>
+                                        <td>{item._source.downloads && item._source.downloads[0] || 0}</td>
+                                        <td>{item._source.num_reviews && item._source.num_reviews[0] || 0}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    })
+                }            
+            </ul>
+        }
     }
 
     renderDetails() {
@@ -29,8 +74,14 @@ class Details extends Component {
             .length;
         if (objLen > 0) {
             var data = this.state.contents;
-            console.log(data);
+            // console.log(data.reviews);
             var videoSrc = "https://archive.org/embed/" + data.metadata.identifier;
+            var date = data.metadata.publicdate;
+            var dateFormat = moment(date).format('LL');
+            var updateDate = data.metadata.updatedate;
+            var updateDateFormat = moment(updateDate).format('LL');
+            var reviews = data.reviews;
+            // console.log(reviews);
             return <div>
                 <div className="videoPlayer">
                     <iframe
@@ -43,7 +94,7 @@ class Details extends Component {
                         allowFullScreen/>
                 </div>
                 <div className="details row">
-                    <div className="col-md-7">
+                    <div className="col-md-6">
                         <h4>
                             <i className="fa fa-university" aria-hidden="true"></i>
                             {data.metadata.title}</h4>
@@ -53,7 +104,7 @@ class Details extends Component {
                                 <tbody>
                                     <tr>
                                         <th>Published Date:</th>
-                                        <td>{data.metadata.publicdate}</td>
+                                        <td>{dateFormat}</td>
                                     </tr>
                                     <tr>
                                         <th>Usage:</th>
@@ -117,7 +168,7 @@ class Details extends Component {
                                     </tr>
                                     <tr>
                                         <th>Updated Date:</th>
-                                        <td>{data.metadata.updatedate}</td>
+                                        <td>{updateDateFormat}</td>
                                     </tr>
                                     <tr>
                                         <th>Updater:</th>
@@ -125,10 +176,31 @@ class Details extends Component {
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div>                        
                     </div>
-                    <div className="col-md-5">
-                        <p>Hello</p>
+                    <div className="col-md-6">
+                        <div className="reviews">
+                            <h4>
+                            <i className="fa fa-comment" aria-hidden="true"></i>
+                            Reviews</h4>
+                            <div className="reviewsList">
+                                <ul>
+                                    {
+                                        reviews.map((review, i) => {
+                                            var reviewDate = review.reviewdate;
+                                            var reviewFormat = moment(reviewDate).format('LL');
+                                            return <li key={i}>
+                                                <h5>{review.reviewtitle}</h5>
+                                                <p>{review.reviewbody}</p>
+                                                <span>By: <strong>{review.reviewer}</strong></span>
+                                                <span>When: <strong>{reviewFormat}</strong></span>
+                                                <span>Rating: <strong>{review.stars} Stars</strong></span>
+                                            </li>
+                                        })
+                                    }                                    
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,6 +211,10 @@ class Details extends Component {
         return (
             <div id="details" className="container">
                 {this.renderDetails()}
+                <div className="relatedItems">
+                    <h4>Related Items</h4>
+                    {this.renderRelatedItems()}
+                </div>                
             </div>
         )
     }

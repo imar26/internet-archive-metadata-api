@@ -48,8 +48,58 @@ header h2 {
     border-bottom: 1px solid rgba(0,0,0,.33);
 }
 
+.details h4 {
+    text-transform: uppercase;
+}
+
 .details h4 i {
     padding-right: 7px;
+}
+
+td {
+    word-break: break-all;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    list-style: none;
+}
+
+.details li {
+    list-style: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.33);
+}
+
+img {
+    width: 100%;
+}
+
+.items li h5 {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.items th, .items td {
+    text-align: center;
+}
+
+.details li:last-child {
+    border-bottom: 0;
+}
+
+span {
+    padding-right: 15px;
+}
+
+/* Related Items */
+.relatedItems {
+    border-top: 1px solid rgba(0,0,0,.33);
+    padding-top: 20px;
 }
 
 /* Footer */
@@ -64,4 +114,6 @@ footer p {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
 }
