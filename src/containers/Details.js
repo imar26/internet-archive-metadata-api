@@ -21,7 +21,7 @@ class Details extends Component {
     }
 
     componentDidMount() {
-        this.fetchData();
+        this.fetchData(this.props.location.search.split("=")[1]);
     }
 
     componentWillReceiveProps(newProps) {
@@ -30,7 +30,6 @@ class Details extends Component {
 
     fetchData(identifier) {
         var value = identifier || '';
-        console.log(value);
         this
             .metadataService
             .getMetadataContent(value)
