@@ -202,7 +202,7 @@ class Details extends Component {
                             <div className="reviewsList">
                                 <ul>
                                     {
-                                        reviews.map((review, i) => {
+                                        reviews && reviews.map((review, i) => {
                                             var reviewDate = review.reviewdate;
                                             var reviewFormat = moment(reviewDate).format('LL');
                                             return <li key={i}>
