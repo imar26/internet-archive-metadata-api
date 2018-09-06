@@ -96,6 +96,10 @@ span {
     padding-right: 15px;
 }
 
+.no-results {
+    color: red;
+}
+
 /* Related Items */
 .relatedItems {
     border-top: 1px solid rgba(0,0,0,.33);

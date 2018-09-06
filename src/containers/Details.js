@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import { withRouter } from "react-router-dom";
+
 // Import moment js
 import moment from 'moment';
 
@@ -19,16 +21,26 @@ class Details extends Component {
     }
 
     componentDidMount() {
+        this.fetchData();
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.fetchData(newProps.location.search.split("=")[1]);
+    }
+
+    fetchData(identifier) {
+        var value = identifier || '';
+        console.log(value);
         this
             .metadataService
-            .getMetadataContent()
+            .getMetadataContent(value)
             .then((response) => {
                 this.setState({contents: response})
             });
 
         this
             .metadataService
-            .getRelatedItems()
+            .getRelatedItems(value)
             .then((response) => {
                 this.setState({relatedItems: response})
             });
@@ -64,6 +76,8 @@ class Details extends Component {
                     })
                 }            
             </ul>
+        } else {
+            return <p className="no-results">No results found</p>
         }
     }
 
@@ -73,7 +87,10 @@ class Details extends Component {
             .length;
         if (objLen > 0) {
             var data = this.state.contents;
-            var videoSrc = "https://archive.org/embed/" + data.metadata.identifier;
+            var videoSrc = '';
+            if(data.metadata.identifier) {
+                videoSrc = "https://archive.org/embed/" + data.metadata.identifier;
+            }
             var date = data.metadata.publicdate;
             var dateFormat = moment(date).format('LL');
             var updateDate = data.metadata.updatedate;
@@ -202,6 +219,8 @@ class Details extends Component {
                     </div>
                 </div>
             </div>
+        } else {
+            return <p className="no-results">No results found</p>
         }
     }
 
@@ -209,19 +228,7 @@ class Details extends Component {
         event.preventDefault();
         var identifier = this.refs.identifier.value;
 
-        this
-            .metadataService
-            .getMetadataContent(identifier)
-            .then((response) => {
-                this.setState({contents: response})
-            });
-
-        this
-            .metadataService
-            .getRelatedItems(identifier)
-            .then((response) => {
-                this.setState({relatedItems: response})
-            });
+        this.props.history.push("/contents?identifier=" + identifier);
     }
 
     render() {
@@ -254,4 +261,4 @@ class Details extends Component {
     }
 }
 
-export default Details;
+export default withRouter (Details);
