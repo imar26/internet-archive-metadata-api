@@ -37,13 +37,12 @@ class Details extends Component {
     renderRelatedItems() {
         var len = this.state.relatedItems.length;        
         if(len > 0) {
-            console.log(this.state.relatedItems);
             return <ul className="items row">
                 {
                     this.state.relatedItems.map((item, i) => {
                         var imgSrc = "https://archive.org/services/img/" + item._id;
                         return <li className="col-md-4" key={i}>
-                            <img src={imgSrc} />
+                            <img src={imgSrc} alt={item._id} />
                             <h5>{item._source.title[0]}</h5>
                             <table className="table table-bordered">
                                 <thead>
@@ -56,8 +55,8 @@ class Details extends Component {
                                 <tbody>
                                     <tr>
                                         <td>{item._source.mediatype && item._source.mediatype[0] === 'movies' ? <i className="fa fa-film" aria-hidden="true"></i> : <i className="fa fa-file-text" aria-hidden="true"></i>}</td>
-                                        <td>{item._source.downloads && item._source.downloads[0] || 0}</td>
-                                        <td>{item._source.num_reviews && item._source.num_reviews[0] || 0}</td>
+                                        <td>{(item._source.downloads && item._source.downloads[0]) || 0}</td>
+                                        <td>{(item._source.num_reviews && item._source.num_reviews[0]) || 0}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -74,14 +73,12 @@ class Details extends Component {
             .length;
         if (objLen > 0) {
             var data = this.state.contents;
-            // console.log(data.reviews);
             var videoSrc = "https://archive.org/embed/" + data.metadata.identifier;
             var date = data.metadata.publicdate;
             var dateFormat = moment(date).format('LL');
             var updateDate = data.metadata.updatedate;
             var updateDateFormat = moment(updateDate).format('LL');
             var reviews = data.reviews;
-            // console.log(reviews);
             return <div>
                 <div className="videoPlayer">
                     <iframe
@@ -91,7 +88,8 @@ class Details extends Component {
                         frameBorder="0"
                         webkitallowfullscreen="true"
                         mozallowfullscreen="true"
-                        allowFullScreen/>
+                        allowFullScreen
+                        title="Video"/>
                 </div>
                 <div className="details row">
                     <div className="col-md-6">
@@ -207,14 +205,50 @@ class Details extends Component {
         }
     }
 
+    updateContent(event) {
+        event.preventDefault();
+        var identifier = this.refs.identifier.value;
+
+        this
+            .metadataService
+            .getMetadataContent(identifier)
+            .then((response) => {
+                this.setState({contents: response})
+            });
+
+        this
+            .metadataService
+            .getRelatedItems(identifier)
+            .then((response) => {
+                this.setState({relatedItems: response})
+            });
+    }
+
     render() {
         return (
-            <div id="details" className="container">
-                {this.renderDetails()}
-                <div className="relatedItems">
-                    <h4>Related Items</h4>
-                    {this.renderRelatedItems()}
-                </div>                
+            <div>
+                <div className="identifierForm">
+                    <div className="container">
+                        <form method="POST" className="row" onSubmit={this.updateContent.bind(this)}>
+                            <div className="col-md-10">
+                                <div className="form-group">
+                                    <input type="text" id="identifier" ref="identifier" className="form-control"
+                                        placeholder="Please Enter Unique Identifier" required />
+                                </div>
+                            </div>
+                            <div className="col-md-2">
+                                <input type="submit" value="Submit" className="form-control" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="details" className="container">
+                    {this.renderDetails()}
+                    <div className="relatedItems">
+                        <h4>Related Items</h4>
+                        {this.renderRelatedItems()}
+                    </div>                
+                </div>
             </div>
         )
     }
