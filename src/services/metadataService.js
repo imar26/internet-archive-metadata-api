@@ -15,6 +15,7 @@ class MetadataService {
         return this[_singleton];
     }
 
+    // Get Metadata Contents Based on Identifier
     getMetadataContent(identifier) {
         var uniqueIdentifier = identifier || 'InformationM';   
         
@@ -29,6 +30,7 @@ class MetadataService {
             });
     }
 
+    // Get Related Items Based on Identifier
     getRelatedItems(identifier) {
         var uniqueIdentifier = identifier || 'InformationM';   
         

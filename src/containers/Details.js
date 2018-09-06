@@ -19,16 +19,18 @@ class Details extends Component {
 
         this.metadataService = metadataService.instance;
     }
-
-    componentDidMount() {
+    // Load data when the component is loaded for the first time
+    componentDidMount() {        
         this.fetchData(this.props.location.search.split("=")[1]);
     }
-
+    
+    // Update data when the user enters identifier name
     componentWillReceiveProps(newProps) {
         this.fetchData(newProps.location.search.split("=")[1]);
     }
 
     fetchData(identifier) {
+        // If identifier is not passed as param, pass the value as null
         var value = identifier || '';
         this
             .metadataService
@@ -45,6 +47,7 @@ class Details extends Component {
             });
     }
 
+    // Function to render related items
     renderRelatedItems() {
         var len = this.state.relatedItems.length;        
         if(len > 0) {
@@ -75,11 +78,10 @@ class Details extends Component {
                     })
                 }            
             </ul>
-        } else {
-            return <p className="no-results">No results found</p>
         }
     }
 
+    // Function to render contents
     renderDetails() {
         var objLen = Object
             .keys(this.state.contents)
@@ -218,11 +220,10 @@ class Details extends Component {
                     </div>
                 </div>
             </div>
-        } else {
-            return <p className="no-results">No results found</p>
         }
     }
 
+    // Function called when user submits form
     updateContent(event) {
         event.preventDefault();
         var identifier = this.refs.identifier.value;

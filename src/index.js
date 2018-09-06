@@ -13,6 +13,7 @@ import './index.css';
 // Import Containers
 import App from './containers/App';
 
+// Routes
 import { Router, Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 const history = createHistory();
